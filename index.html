@@ -812,6 +812,7 @@ function editUser(idx){
   document.getElementById('u-email').value=u.email;
   document.getElementById('u-role').value=u.role;
   document.getElementById('u-senha').value=u.senha;
+  document.getElementById('modal-user').dataset.senhaOriginal=u.senha;
   document.getElementById('u-send-email').checked=false;
   document.getElementById('modal-user-error').style.display='none';
   document.getElementById('modal-email-status').style.display='none';
@@ -864,7 +865,8 @@ async function saveUser(){
     var u=users[parseInt(editIdx)];
     u.nome=nome;u.email=email;u.role=role;u.senha=senha;
     addLog('admin','Usuário "'+login+'" editado');
-    if(senha !== (users[parseInt(editIdx)]._senhaAnterior||users[parseInt(editIdx)].senha)) { u.senhaVersao = (u.senhaVersao||0) + 1; }
+    var senhaOriginal = document.getElementById('modal-user').dataset.senhaOriginal || u.senha;
+    if(senha !== senhaOriginal) { u.senhaVersao = (u.senhaVersao||0) + 1; console.log('Senha alterada — senhaVersao:', u.senhaVersao); }
   }
 
   // Salvar usuários no Render como env var (persistência permanente)

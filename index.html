@@ -755,6 +755,8 @@ function toggleUser(idx,v){
 }
 async function toggleBloqueio(idx) {
   users[idx].bloqueado = !users[idx].bloqueado;
+  // Sincroniza ativo com bloqueado — app Flutter usa campo "ativo" para liberar login
+  users[idx].ativo = !users[idx].bloqueado;
   var acao = users[idx].bloqueado ? 'bloqueado' : 'desbloqueado';
   addLog(users[idx].login, 'Acesso ao app ' + acao);
   _renderUsers();
